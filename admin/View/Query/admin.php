@@ -69,6 +69,7 @@ if (!isset($_SESSION["Email"])) {
     </div>
   </nav>
 
+  <h5 class="text-center">Các Thẻ Nhanh được khởi tạo</h5>
   <!-- Main Container -->
   <div class="container main-container">
     <div class="row">
@@ -130,7 +131,7 @@ if (!isset($_SESSION["Email"])) {
       <div class="col-md-4">
         <div class="card mb-4 text-center">
           <div class="card-body">
-            <i class="fas fa-tags text-warning"></i>
+            <i class="fas fa-tags text-success"></i>
             <h5 class="card-title mt-2">Quản lý ưu đãi</h5>
             <p class="card-text">Quản lý các chương trình khuyến mãi và ưu đãi đặc biệt.</p>
             <a href="#" class="btn btn-outline-success">Truy cập</a>
