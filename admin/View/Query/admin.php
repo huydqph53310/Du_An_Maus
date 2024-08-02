@@ -1,16 +1,17 @@
-<?php 
+<?php
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-if(!isset($_SESSION["Email"])){
+if (!isset($_SESSION["Email"])) {
   header("Location: ?act=trangchu");
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-<link rel="icon" href="Data/Huydev/Icon/data-management.png" type="image/x-icon">
+  <link rel="icon" href="Data/Huydev/Icon/data-management.png" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <!-- Bootstrap CSS -->
@@ -25,15 +26,18 @@ if(!isset($_SESSION["Email"])){
       justify-content: center;
       flex-direction: column;
     }
+
     .card {
       width: 18rem;
       margin: 15px;
     }
+
     .card-body i {
       font-size: 2rem;
     }
   </style>
 </head>
+
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,7 +47,7 @@ if(!isset($_SESSION["Email"])){
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-      <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="?act=trangchu">Home</a>
         </li>
         <li class="nav-item">
@@ -109,29 +113,30 @@ if(!isset($_SESSION["Email"])){
         </div>
       </div>
 
-    <!-- Các khối hiện tại -->
-    <!-- Khối Quản lý vé mới -->
-    <div class="col-md-4">
-      <div class="card mb-4 shadow-sm text-center">
-        <div class="card-body">
-        <i class="fas fa-ticket-alt text-warning"></i>
-        <h5 class="card-title">Quản lý vé</h5>
-          <p class="card-text">Quản lý và cập nhật các loại vé. Quản lý ngày bay</p>
-          <a href="#" class="btn btn-outline-warning">Truy cập</a>
+      <!-- Các khối hiện tại -->
+      <!-- Khối Quản lý vé mới -->
+       
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+          <i class="fas fa-ticket-alt text-warning"></i>
+            <h5 class="card-title mt-2">Quản lý Vé</h5>
+            <p class="card-text">Quản lý và cập nhật các loại vé. Quản lý ngày bay</p>
+            <a href="binhluan.php" class="btn btn-outline-warning">Truy cập</a>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Khối Quản lý ưu đãi mới -->
-    <div class="col-md-4">
-      <div class="card mb-4 shadow-sm text-center">
-        <div class="card-body">
-        <i class="fas fa-tags text-warning"></i>
-          <h5 class="card-title">Quản lý ưu đãi</h5>
-          <p class="card-text">Quản lý các chương trình khuyến mãi và ưu đãi đặc biệt.</p>
-          <a href="#" class="btn btn-outline-success">Truy cập</a>
+      <!-- Khối Quản lý ưu đãi mới -->
+      <div class="col-md-4">
+        <div class="card mb-4 text-center">
+          <div class="card-body">
+            <i class="fas fa-tags text-warning"></i>
+            <h5 class="card-title mt-2">Quản lý ưu đãi</h5>
+            <p class="card-text">Quản lý các chương trình khuyến mãi và ưu đãi đặc biệt.</p>
+            <a href="#" class="btn btn-outline-success">Truy cập</a>
+          </div>
         </div>
       </div>
-    </div>
 
       <div class="col-md-4">
         <div class="card text-center">
@@ -151,4 +156,5 @@ if(!isset($_SESSION["Email"])){
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
