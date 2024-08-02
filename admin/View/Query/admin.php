@@ -68,8 +68,9 @@ if (!isset($_SESSION["Email"])) {
       </ul>
     </div>
   </nav>
-
+<br>
   <h5 class="text-center">Các Thẻ Nhanh được khởi tạo</h5>
+  <br>
   <!-- Main Container -->
   <div class="container main-container">
     <div class="row">
@@ -145,7 +146,7 @@ if (!isset($_SESSION["Email"])) {
             <i class="fas fa-chart-bar text-danger"></i>
             <h5 class="card-title mt-2">Thống kê</h5>
             <p class="card-text">Xem thống kê doanh số và báo cáo.</p>
-            <a href="thongke.php" class="btn btn-outline-danger">Truy cập</a>
+            <a href="?act=thongke" class="btn btn-outline-danger">Truy cập</a>
           </div>
         </div>
       </div>

@@ -148,7 +148,7 @@ Class Query{
             $data = $this->pdo->query($sql)->fetchAll();
             $listType = [];
             foreach($data as $list){
-                $listType[] = new LoaiHang($list["MaLoaiHang"], $list["TenLoaiHang"], $list["TrangThai"], $list["HinhAnh"]);
+                $listType[] = new LoaiHang($list["MaLoaiHang"], $list["TenLoaiHang"], $list["TrangThai"], $list["HinhAnh"], $list["count"]);
             }
             return $listType;
         }catch(Exception $err){
@@ -182,7 +182,7 @@ Class Query{
         try{
             $sql = "SELECT * FROM `loai` WHERE MaLoaiHang = $id";
             $data = $this->pdo->query($sql)->fetch();
-            $loai = new LoaiHang($data["MaLoaiHang"], $data["TenLoaiHang"], $data["TrangThai"], $data["HinhAnh"]);
+            $loai = new LoaiHang($data["MaLoaiHang"], $data["TenLoaiHang"], $data["TrangThai"], $data["HinhAnh"], $data["count"]);
             return $loai;
         }catch(Exception $err){
             echo $err->getMessage();

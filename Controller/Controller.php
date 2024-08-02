@@ -273,10 +273,10 @@ class  Controller
         $ngonngu = $login->NgonNgu;
         $thongBaoLoi = "";
         $thongBaoThanhCong = "";
-        $add = new LoaiHang(null, null, null, null);
+        $add = new LoaiHang(null, null, null, null,null);
         if(isset($_POST["Fadd"])){
             $name = $_POST["name"];
-            $add = new LoaiHang(null, $name, $_POST["status"], $_FILES["Fileanh"]);
+            $add = new LoaiHang(null, $name, $_POST["status"], $_FILES["Fileanh"], $add->count);
             if($name === ""){
                 $thongBaoLoi = "Trường còn trống";
             }
@@ -309,8 +309,9 @@ class  Controller
         $ngonngu = $login->NgonNgu;
         $thongBaoLoi = "";
         $thongBaoThanhCong = "";
+        $update = new LoaiHang(null, null, null, null,null);
         if(isset($_POST["Fedit"])){
-            $update = new LoaiHang(null, $_POST["name"], $_POST["status"], $_POST["linkimg"]);
+            $update = new LoaiHang(null, $_POST["name"], $_POST["status"], $_POST["linkimg"], $update->count);
             if($_POST["name"] === ""){
                 $thongBaoLoi = "Lỗi Trống trường không thể thêm";
             }
@@ -347,5 +348,10 @@ class  Controller
         }else{
             echo "Không có giá trị id nào được truyền vào";
         }
+    }
+
+    public function ThongKe(){
+        $list = $this->connect->ShowLoaiHang();
+        include "admin/View/Query/thongke.php";
     }
 }

@@ -110,6 +110,10 @@ switch ($act) {
         $productCtrl = new Controller();
         $productCtrl->ChangePass();
         break;
+    case "thongke": // quản lý thay đổi mật khẩu
+            $productCtrl = new Controller();
+            $productCtrl->ThongKe();
+            break;
         // case "book-detail":
         //     $productCtrl = new BookController();
         //     $productCtrl->showDetail($id);
