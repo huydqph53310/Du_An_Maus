@@ -198,4 +198,15 @@ Class Query{
             echo $err->getMessage();
         }
     }
+
+    public function CountType($id, LoaiHang $loaiHang){
+        try{
+            $sql = "UPDATE `loai` SET count = '$loaiHang->count' WHERE id = $id";
+            $data = $this->pdo->exec($sql);
+            return $data;
+        }
+        catch(Exception $err){
+            echo $err->getMessage();
+        }
+    }
 }

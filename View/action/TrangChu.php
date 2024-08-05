@@ -211,7 +211,6 @@
         function renderCategories() {
             categories.forEach(category => {
                 console.log(category)
-
                 if (category.TrangThai == 1) {
                     let row = document.createElement("div");
                     row.style.borderRadius = "5%"
@@ -238,18 +237,14 @@
                         name.textContent = category.TenLoaiHang + "";
                         name.style.textDecoration = "none";
                     });
-                    row.onclick = function() {
-                        alert(category.TenLoaiHang);
-                        
-                    }
+                
                     var Mod = document.getElementById("Product_List");
                     if (Mod) {
                         Mod.appendChild(row);
                     }
                 }
             });
-        }
-
+        }   
         // // Gọi hàm renderCategories khi trang tải xong
         document.addEventListener('DOMContentLoaded', renderCategories);
     </script>
