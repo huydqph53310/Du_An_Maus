@@ -15,5 +15,3 @@ Class LoaiHang{
         
     }
 }
-
-?>

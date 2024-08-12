@@ -9,7 +9,7 @@ class  Controller
     public function __construct()
     {
         $this->connect = new Query();
-        $this->time = 0;
+        $this->time = 1;
     }
 
     public function __destruct()
@@ -18,17 +18,17 @@ class  Controller
     }
 
 
-    public function language($a)
+    public function language($a, $url)
     {
         session_start();
         switch ($a) {
             case 0:
-                $mod = $this->connect->ChangeLanguage($_SESSION["id"],0);
-                header("Location: ?act=trangchu");
+                $mod = $this->connect->ChangeLanguage($_SESSION["id"], 0);
+                header("Location: ?act=$url");
                 break;
             case 1:
-                $mod = $this->connect->ChangeLanguage($_SESSION["id"],1);
-                header("Location: ?act=trangchu");
+                $mod = $this->connect->ChangeLanguage($_SESSION["id"], 1);
+                header("Location: ?act=$url");
                 break;
             default:
                 $this->time = 0;
@@ -39,12 +39,19 @@ class  Controller
     public function trangChu()
     {
         session_start();
-        $list = $this->connect->ShowLoaiHang();
-        if(isset($_SESSION["Email"])){
-            $mod = $this->connect->ShowAccount($_SESSION["Email"]);
-        }else{
-            $mod = $this->connect->ShowNewBee(1);
+        if ($this->connect !== null) {
+            if (isset($_SESSION["Email"])) {
+                $trangChuShow = $this->connect->ShowAccount($_SESSION["Email"]);
+                $NgonNgu = $trangChuShow->NgonNgu;
+                $vaitro = $trangChuShow->VaiTro;
+            } else {
+                $trangChuShow = $this->connect->ShowNewBee(1);
+                $NgonNgu = $trangChuShow->NgonNgu;
+            }
         }
+        $list = $this->connect->ShowLoaiHang();
+        $uudai = $this->connect->ShowVoucher();
+        $location = $this->connect->ShowLocation();
         if (isset($_POST["smf"])) {
             header("location: ?act=search&huyhack&huydz&huydepzai&?q=" . $_POST["search"]);
         } else {
@@ -68,27 +75,26 @@ class  Controller
             if ($Email == "" || $PassWord == "") {
                 $thongBaoLoi = "Email Hoặc PassWord Không được để trống";
             } else {
-          
                 $login = $this->connect->ShowAccount($Email);
-               if($login !== false){
-                if ($Email === $login->Email && md5($PassWord) === $login->MatKhauDangNhap && $login->Ban === 0) {
-                    session_start();
-                    $_SESSION["Email"] = $Email;
-                    $_SESSION["id"] = $login->MaKhachHang;
-                    Sleep(3);
-                    header("Location: ?act=trangchu");
-                }else{
+                if ($login !== false) {
+                    if ($Email === $login->Email && md5($PassWord) === $login->MatKhauDangNhap && $login->Ban === 0) {
+                        session_start();
+                        $_SESSION["Email"] = $Email;
+                        $_SESSION["id"] = $login->MaKhachHang;
+                        Sleep(3);
+                        header("Location: ?act=trangchu");
+                    } else {
+                        $thongBaoLoi = "Thông tin tài khoản mật khẩu không chính xác";
+                    }
+                    if ($login->Ban === 1) {
+                        $thongBaoLoi = "Tài Khoản đã bị Tạm khóa để kiểm tra. Vui lòng thử lại sau.";
+                    }
+                } else {
                     $thongBaoLoi = "Thông tin tài khoản mật khẩu không chính xác";
                 }
-                 if($login->Ban === 1){
-                    $thongBaoLoi = "Tài Khoản đã bị Tạm khóa để kiểm tra. Vui lòng thử lại sau.";
-                }   
-               }else{
-                $thongBaoLoi = "Thông tin tài khoản mật khẩu không chính xác";
-               }
             }
         }
-        include "admin/View/Query/singin.php";
+        include "admin/View/Account/singin.php";
     }
 
     public function singup()
@@ -133,7 +139,7 @@ class  Controller
                 }
             }
         }
-        include "admin/View/Query/singup.php";
+        include "admin/View/Account/singup.php";
     }
 
     public function logout()
@@ -141,8 +147,6 @@ class  Controller
         Sleep(3);
         session_start();
         session_unset();
-        unset($_SESSION["Email"]);
-        unset($_SESSION["id"]);
         header("Location: ?act=trangchu");
         include "View/action/TrangChu.php";
     }
@@ -163,195 +167,50 @@ class  Controller
             header("location: ?act=search&huydev&huydz&huydepzai&?q=" . $_POST["search"]);
         }
         include "View/action/TimKiem.php";
-    }    
-    public function ShowAccount()
+    }
+
+    public function DichVu($id, $count)
     {
-        Sleep(2);
         session_start();
-        $login = $this->connect->ShowAccount($_SESSION["Email"]);
-        $ngonngu = $login->NgonNgu;
-        $mod = $this->connect->ShowAccount($_SESSION["Email"]);
-        // $ngonngu = $this->time;
-        include "admin/View/Query/Account.php";
-    }
-    public function Admin(){
-        Sleep(2);
-        include "admin/View/Query/admin.php";
-    }
-
-
-    public function ActorManager(){
-        Sleep(2);
-        session_start();
-        $login = $this->connect->ShowAccount($_SESSION["Email"]);
-        $ngonngu = $login->NgonNgu;
-        $KH = $this->connect->DownUser();
-        include "admin/View/Query/khachhang.php";
-    }
-
-
-    public function ChangBanAccount($id){
-        Sleep(2);
-        $mod = $this->connect->FindAccount($id);
-        switch ($mod->Ban) {
-            case 0:
-                $Ban = $this->connect->ChangeBan($id, 1);
-                header("Location: ?act=actormanager");
-                break;
-            case 1:
-                $Ban = $this->connect->ChangeBan($id, 0);
-                header("Location: ?act=actormanager");
-                break;
-            default:
-                # code...
-                break;
-        }
-        // var_dump($mod);
-    }
-
-    public function DellAccount($id){
-        Sleep(2);
-        $dell = $this->connect->DelAccount($id);
-        header("Location: ?act=actormanager");
-    }
-
-    public function ChangePass(){
-        session_start();
-        Sleep(2);
-        $login = $this->connect->ShowAccount($_SESSION["Email"]);
-        $ngonngu = $login->NgonNgu;
-        $Email = "";
-        $PassWord = "";
-        $thongBaoLoi = "";
-        $thongBaoThanhCong = "";
-        $checktk = false;
-        $checkmk = false;
-        if (isset($_POST["FLOGIN"])) {
-            $PassWordOld = $_POST["oldpass"];
-            $PassWordNew = $_POST["newpass"];
-            $RepaidPassWordNew = $_POST["repaidpass"];
-            if ($PassWordOld == "" || $PassWordNew == "") {
-                $thongBaoLoi = "PassWord Không được để trống";
+        if ($this->connect !== null) {
+            if (isset($_SESSION["Email"])) {
+                $trangChuShow = $this->connect->ShowAccount($_SESSION["Email"]);
+                $NgonNgu = $trangChuShow->NgonNgu;
+                $vaitro = $trangChuShow->VaiTro;
             } else {
-               if($login !== false){
-                if (md5($PassWordOld) === $login->MatKhauDangNhap) {
-                    if($PassWordOld === $PassWordNew){
-                        $thongBaoLoi = "Mật khẩu mới không được trùng với mật khẩu cũ";
-                    }else{
-                        if($PassWordNew === $RepaidPassWordNew){
-                            $thongBaoThanhCong = "Chúc mừng bạn đã thay đổi mật khẩu thành công <br>";
-                            $repate = $this->connect->ChangePass($_SESSION["id"], md5($PassWordNew));
-                            echo '<script></>';
-                            // echo '<script>alert("Bạn đã đổi mật khẩu thành công vui lòng quay lại trang đăng nhập");</script>';                      
-                        }else{
-                            $thongBaoLoi = "Mật khẩu xác nhận không chính xác không chính xác <br>";
-                        }
-                    }
-                }else{
-                    $thongBaoLoi = "Mật khẩu cũ không chính xác <br>";
-                }
-               }else{
-                $thongBaoLoi = "Mật khẩu cũ không chính xác <br>";
-               }
+                $trangChuShow = $this->connect->ShowNewBee(1);
+                $NgonNgu = $trangChuShow->NgonNgu;
             }
         }
-        include "admin/View/Query/ChangePass.php";
+        $mahk = $count;
+        $mahk++;
+        $updateCount = new LoaiHang(null, null, null, null, $mahk);
+        $data = $this->connect->CountType($id, $updateCount);
+        $maLoai = $id;
+        if ($maLoai == "2") {
+            include "admin/View/Service/KhachSan.php";
+        } else if ($maLoai == "1") {
+            include "admin/View/Tickets/BookTicket.php";
+        } else if ($maLoai == "3") {
+            include "admin/View/KyGui/HanhLy.php";
+        }
     }
 
-    // thực hiện công việc của tab type -> loại
-    public function Type(){
+    /// điều hướng trang đặt vé
+
+    public function BookTicket()
+    {
         session_start();
-        $login = $this->connect->ShowAccount($_SESSION["Email"]);
-        $ngonngu = $login->NgonNgu;
-        $list = $this->connect->ShowLoaiHang();
-        include "admin/View/Query/loai.php";
-    }
-
-    public function AddType(){
-        session_start();
-        $login = $this->connect->ShowAccount($_SESSION["Email"]);
-        $ngonngu = $login->NgonNgu;
-        $thongBaoLoi = "";
-        $thongBaoThanhCong = "";
-        $add = new LoaiHang(null, null, null, null,null);
-        if(isset($_POST["Fadd"])){
-            $name = $_POST["name"];
-            $add = new LoaiHang(null, $name, $_POST["status"], $_FILES["Fileanh"], $add->count);
-            if($name === ""){
-                $thongBaoLoi = "Trường còn trống";
-            }
-            if($_FILES["Fileanh"]["tmp_name"] !== ""){
-                $s1 = $_FILES["Fileanh"]["tmp_name"];
-                $s2 = "upload/" . $_FILES["Fileanh"]["name"];
-                if (move_uploaded_file($s1, $s2)) {
-                    $add->HinhAnh = "upload/" . $_FILES["Fileanh"]["name"];
-                } else {
-                    echo "<br>";
-                    $thongBaoLoi = "Không thể up load ảnh";
-                }
-            }
-            if($thongBaoLoi == ""){
-                $addtt = $this->connect->AddLoaiHang($add);
-                if($addtt == 1){
-                    $thongBaoThanhCong = "Thêm dữ liệu thành công";
-                }
-            }
-
-        }
-        include "admin/View/Query/CreateType.php";
-    }
-
-    public function EditType($id){
-      if($id !== ""){
-        session_start();
-        $find = $this->connect->FindTypeForId($id);
-        $login = $this->connect->ShowAccount($_SESSION["Email"]);
-        $ngonngu = $login->NgonNgu;
-        $thongBaoLoi = "";
-        $thongBaoThanhCong = "";
-        $update = new LoaiHang(null, null, null, null,null);
-        if(isset($_POST["Fedit"])){
-            $update = new LoaiHang(null, $_POST["name"], $_POST["status"], $_POST["linkimg"], $update->count);
-            if($_POST["name"] === ""){
-                $thongBaoLoi = "Lỗi Trống trường không thể thêm";
-            }
-            if($_FILES["Fileanh"]["tmp_name"] !== ""){
-                $s1 = $_FILES["Fileanh"]["tmp_name"];
-                $s2 = "upload/" . $_FILES["Fileanh"]["name"];
-                if (move_uploaded_file($s1, $s2)) {
-                    $update->HinhAnh = "upload/" . $_FILES["Fileanh"]["name"];
-                } else {
-                    echo "<br>";
-                    $thongBaoLoi = "Không thể up load ảnh";
-                }
-            }
-            if($thongBaoLoi == ""){
-                $edit = $this->connect->UpdateLoaiHang($id, $update);
-                if($edit == 1 || $edit == 0){
-                    $thongBaoThanhCong = "Thay đổi dữ liệu thành công";
-                }
+        if ($this->connect !== null) {
+            if (isset($_SESSION["Email"])) {
+                $trangChuShow = $this->connect->ShowAccount($_SESSION["Email"]);
+                $NgonNgu = $trangChuShow->NgonNgu;
+                $vaitro = $trangChuShow->VaiTro;
+            } else {
+                $trangChuShow = $this->connect->ShowNewBee(1);
+                $NgonNgu = $trangChuShow->NgonNgu;
             }
         }
-      }
-    else{
-        echo "Không có giá trị id nào được truyền vào";
-    }
-        include "admin/View/Query/EditType.php";
-    }
-
-    public function DellType($id){
-        if($id != ""){
-            $dell  = $this->connect->DellTypeForId($id);
-            if($dell == 1){
-                header("Location: ?act=typemanager");
-            }
-        }else{
-            echo "Không có giá trị id nào được truyền vào";
-        }
-    }
-
-    public function ThongKe(){
-        $list = $this->connect->ShowLoaiHang();
-        include "admin/View/Query/thongke.php";
+        include "admin/View/Tickets/BookTicket.php";
     }
 }

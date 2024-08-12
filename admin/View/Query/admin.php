@@ -48,27 +48,36 @@ if (!isset($_SESSION["Email"])) {
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="?act=trangchu">Home</a>
+          <a class="nav-link" href="<?= BASE_DIR ?>">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="?act=typemanager">Loại</a>
+          <a class="nav-link" href="?act=typemanager">Dịch Vụ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="hanghoa.html">Hàng hóa</a>
+          <a class="nav-link" href="?act=luggagemanager">Hàng hóa ký gửi</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="?act=actormanager">Khách hàng</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="binhluan.html">Bình luận</a>
+          <a class="nav-link" href="?act=binhluan">Bình Luận</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="thongke.html">Thống kê</a>
+          <a class="nav-link" href="?act=tickets">Vé máy bay</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?act=uudai">Ưu đãi</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?act=diemden">Điểm đến</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?act=thongke">Thống kê</a>
         </li>
       </ul>
     </div>
   </nav>
-<br>
+  <br>
   <h5 class="text-center">Các Thẻ Nhanh được khởi tạo</h5>
   <br>
   <!-- Main Container -->
@@ -78,8 +87,8 @@ if (!isset($_SESSION["Email"])) {
         <div class="card text-center">
           <div class="card-body">
             <i class="fas fa-list-alt text-primary"></i>
-            <h5 class="card-title mt-2">Quản lý Loại</h5>
-            <p class="card-text">Quản lý và cập nhật các loại hàng hóa.</p>
+            <h5 class="card-title mt-2">Quản lý Dịch Vụ</h5>
+            <p class="card-text">Quản lý và cập nhật các Dịch vụ của hãng.</p>
             <a href="?act=typemanager" class="btn btn-outline-primary">Truy cập</a>
           </div>
         </div>
@@ -88,9 +97,9 @@ if (!isset($_SESSION["Email"])) {
         <div class="card text-center">
           <div class="card-body">
             <i class="fas fa-box text-success"></i>
-            <h5 class="card-title mt-2">Quản lý Hàng hóa</h5>
-            <p class="card-text">Quản lý và cập nhật các mặt hàng trong danh sách.</p>
-            <a href="hanghoa.php" class="btn btn-outline-success">Truy cập</a>
+            <h5 class="card-title mt-2">Quản lý Hàng hóa Ký gửi</h5>
+            <p class="card-text">Các hàng hóa đang chờ hoặc đang vận chuyển</p>
+            <a href="?act=luggagemanager" class="btn btn-outline-success">Truy cập</a>
           </div>
         </div>
       </div>
@@ -110,21 +119,21 @@ if (!isset($_SESSION["Email"])) {
             <i class="fas fa-comments text-warning"></i>
             <h5 class="card-title mt-2">Quản lý Bình luận</h5>
             <p class="card-text">Quản lý các bình luận của khách hàng.</p>
-            <a href="binhluan.php" class="btn btn-outline-warning">Truy cập</a>
+            <a href="?act=binhluan" class="btn btn-outline-warning">Truy cập</a>
           </div>
         </div>
       </div>
 
       <!-- Các khối hiện tại -->
       <!-- Khối Quản lý vé mới -->
-       
+
       <div class="col-md-4">
         <div class="card text-center">
           <div class="card-body">
-          <i class="fas fa-ticket-alt text-warning"></i>
+            <i class="fas fa-ticket-alt text-warning"></i>
             <h5 class="card-title mt-2">Quản lý Vé</h5>
             <p class="card-text">Quản lý và cập nhật các loại vé. Quản lý ngày bay</p>
-            <a href="binhluan.php" class="btn btn-outline-warning">Truy cập</a>
+            <a href="admin/?act=actormanager" class="btn btn-outline-warning">Truy cập</a>
           </div>
         </div>
       </div>
@@ -135,11 +144,22 @@ if (!isset($_SESSION["Email"])) {
             <i class="fas fa-tags text-success"></i>
             <h5 class="card-title mt-2">Quản lý ưu đãi</h5>
             <p class="card-text">Quản lý các chương trình khuyến mãi và ưu đãi đặc biệt.</p>
-            <a href="#" class="btn btn-outline-success">Truy cập</a>
+            <a href="?act=uudai" class="btn btn-outline-success">Truy cập</a>
           </div>
         </div>
       </div>
 
+
+      <div class="col-md-4">
+        <div class="card mb-4 text-center">
+          <div class="card-body">
+            <i class="fas fa-map-marker-alt text-danger"></i>
+            <h5 class="card-title mt-2">Quản lý điểm đến</h5>
+            <p class="card-text">Quản lý các chương trình khuyến mãi và ưu đãi đặc biệt.</p>
+            <a href="?act=diemden" class="btn btn-outline-danger">Truy cập</a>
+          </div>
+        </div>
+      </div>
       <div class="col-md-4">
         <div class="card text-center">
           <div class="card-body">

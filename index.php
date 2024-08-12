@@ -1,13 +1,16 @@
 <?php
 // 1. Nhúng các file cần thiết
-include_once "Controller/Controller.php";
-include_once "admin/model/Query.php";
-include_once "admin/model/Actor.php";
-include_once "admin/model/NewBee.php";
-include_once "admin/model/LoaiHang.php";
-include_once "admin/model/Product.php";
-include_once "admin/model/Comment.php";
-define("BASEURL", "http://huydev.id.vn/admin/WEB2014_Ontap1/");
+include "Controller/Controller.php";
+include "admin/model/Query.php";
+include "admin/model/Actor.php";
+include "admin/model/NewBee.php";
+include "admin/model/LoaiHang.php";
+include "admin/model/Product.php";
+include "admin/model/Comment.php";
+include "admin/model/Config.php";
+include "admin/model/UuDai.php";
+include "admin/model/DiemDen.php";
+
 // $huydz = "http://huydev.id.vn/admin/WEB2014_Ontap1/1";
 // echo $huydz;
 // echo "<br>";
@@ -41,6 +44,16 @@ if (isset($_GET["type"])) {
     $language = $_GET["type"];
 }
 
+$count = "";
+if (isset($_GET["count"])) {
+    $count = $_GET["count"];
+}
+
+$url = "";
+if (isset($_GET["url"])) {
+    $url = $_GET["url"];
+}
+
 // 3. Kiểm tra giá trị "act"
 switch ($act) {
     case "":
@@ -54,75 +67,32 @@ switch ($act) {
         $productCtrl = new Controller();
         $productCtrl->TimKiem();
         break;
-    case "singin": // đăng nhập
+    case "signin": // đăng nhập
         $productCtrl = new Controller();
         $productCtrl->singin();
         break;
-    case "singup": // đăng ký
+    case "signup": // đăng ký
         $productCtrl = new Controller();
         $productCtrl->singup();
         break;
     case "language": // đổi ngôn ngữ
         $productCtrl = new Controller();
-        $productCtrl->language($language);
+        $productCtrl->language($language, $url);
         break;
     case "logout": // đăng xuất
         $productCtrl = new Controller();
         $productCtrl->logout();
         break;
-    case "user": // thông tin tài khoản được đổ về
-        $productCtrl = new Controller();
-        $productCtrl->ShowAccount();
-        break;
-    case "admin": // trang quản lý
-        $productCtrl = new Controller();
-        $productCtrl->Admin();
-        break;
-    case "typemanager": // quản lý loại hàng
-        $productCtrl = new Controller();
-        $productCtrl->Type();
-        break;
-    case "addtype": // thêm loại hàng
-        $productCtrl = new Controller();
-        $productCtrl->AddType();
-        break;
-    case "edittype": // thêm loại hàng
-        $productCtrl = new Controller();
-        $productCtrl->EditType($id);
-        break;
-    case "delltype": // thêm loại hàng
-        $productCtrl = new Controller();
-        $productCtrl->DellType($id);
-        break;
-    case "actormanager": // quản lý khách hàng
-        $productCtrl = new Controller();
-        $productCtrl->ActorManager();
-        break;
-    case "actormanager/Ban": // quản lý chặn tài khoản
-        $productCtrl = new Controller();
-        $productCtrl->ChangBanAccount($id);
-        break;
-    case "dellaccount": // quản lý xóa tài khoản
-        $productCtrl = new Controller();
-        $productCtrl->DellAccount($id);
-        break;
-    case "ChangePassWord": // quản lý thay đổi mật khẩu
-        $productCtrl = new Controller();
-        $productCtrl->ChangePass();
-        break;
-    case "thongke": // quản lý thay đổi mật khẩu
-            $productCtrl = new Controller();
-            $productCtrl->ThongKe();
-            break;
-        // case "book-detail":
-        //     $productCtrl = new BookController();
-        //     $productCtrl->showDetail($id);
-        //     break;
 
-        // case "book-update":
-        //     $productCtrl = new BookController();
-        //     $productCtrl->showUpdate($id);
-        //     break;
+    case "dichvu":
+        $productCtrl = new Controller();
+        $productCtrl->DichVu($id, $count);
+        break;
+
+    case "bookticket":
+        $productCtrl = new Controller();
+        $productCtrl->BookTicket();
+        break;
     default:
         include "view/404.php";
         break;

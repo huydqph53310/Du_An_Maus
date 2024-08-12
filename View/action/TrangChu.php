@@ -9,163 +9,243 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #f9fdff;
+        }
+
+        .navbar-brand img {
+            width: 150px;
+            height: 45px;
+        }
+
+        #search {
+            width: 250px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        #search:focus {
+            width: 400px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card p {
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            color: #333;
+            margin: 0;
+        }
+
+        .card p:hover {
+            color: #007bff;
+        }
+
+        footer {
+            margin-top: 40px;
+            background-color: #343a40;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .footer-section h4 {
+            font-size: 18px;
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #f8f9fa;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffc107;
+        }
+
+        .social-media-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-media-links li {
+            display: inline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #6c757d;
+            padding-top: 20px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #adb5bd;
+        }
+
+        .carousel-inner img {
+            border-radius: 10px;
+        }
+
+        .banner-content {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .banner-content h2 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .banner-content p span {
+            color: #ffc107;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .promo-button {
+            background-color: #ffc107;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .promo-button:hover {
+            background-color: #e0a800;
+            color: white;
+        }
+    </style>
 </head>
-<style>
-    /* #search {
-        width: 250px;
-        transition: 1s;
-    }
-
-    #search:focus {
-        width: 500px;
-    } */
-
-    .container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        /* Tạo ba cột bằng nhau */
-        grid-auto-rows: minmax(200px, auto);
-        /* Chiều cao hàng tự động */
-        gap: 20px;
-        /* Khoảng cách giữa các phần tử */
-    }
-
-    .container>div[id^="cards"] {
-        /* background-color: #f0f0f0;
-        /* Màu nền cho minh họa */
-        /* Viền cho minh họa */
-        /* padding: 10px; */
-        /* Khoảng cách trong */
-        cursor: pointer;
-    }
-
-    /* CSS for Airline Website Footer */
-    footer {
-        margin-top: 40px;
-        background-color: #f0f0f0;
-        color: black;
-        font-family: Arial, sans-serif;
-        padding: 20px 40px;
-    }
-
-    .footer-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-    }
-
-    .footer-section h4 {
-        font-size: 18px;
-        border-bottom: 2px solid black;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
-
-    .footer-section p {
-        font-size: 14px;
-        line-height: 1.6;
-    }
-
-    .footer-section ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .footer-section ul li {
-        margin-bottom: 10px;
-    }
-
-    .footer-section ul li a {
-        color: black;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .footer-section ul li a:hover {
-        color: red;
-        /* Gold color on hover */
-    }
-
-    .social-media-links {
-        display: flex;
-        gap: 10px;
-    }
-
-    .social-media-links li {
-        display: inline;
-    }
-
-    .footer-bottom {
-        text-align: center;
-        border-top: 1px solid black;
-        /* Light grey border for separation */
-        padding-top: 20px;
-        margin-top: 20px;
-        font-size: 14px;
-    }
-</style>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f9fdff;">
-        <a class="navbar-brand" href="?act=trangchu"><img src="Data/Logo/logo.png" alt="" style="width: 150px; height: 45px"></a>
-
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="?act=trangchu"><img src="Data/Logo/logo.png" alt="HuyDevShop Logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="?act=trangchu"><?= $mod->NgonNgu == 1 ? "Trang Chủ" : "Home" ?><span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="?act=trangchu"><?= $NgonNgu == 1 ? "Trang Chủ" : "Home" ?><span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="?act=user"><?= $mod->NgonNgu  == 1 ? "Đặt vé" : "Book tickets" ?></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="?act=bookticket"><?= $NgonNgu == 1 ? "Đặt vé" : "Book tickets" ?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                        <?= $mod->NgonNgu  == 1 ? "Ngôn Ngữ" : "language" ?>
+                        <?= $NgonNgu == 1 ? "Ngôn Ngữ" : "Language" ?>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="?act=language&type=1">Vietnamese</a>
-                        <a class="dropdown-item" href="?act=language&type=0">English</a>
+                        <a class="dropdown-item" href="?act=language&type=1&url=trangchu">Vietnamese</a>
+                        <a class="dropdown-item" href="?act=language&type=0&url=trangchu">English</a>
+                        <a class="dropdown-item" href="?act=language&type=2&url=trangchu">Chinese</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                        <?= $mod->NgonNgu  == 1 ? "Tài Khoản" : "Account" ?>
+                        <?= $NgonNgu == 1 ? "Tài Khoản" : "Account" ?>
                     </a>
-                    <?php
-                    if (isset($_SESSION["Email"])) { ?>
+                    <?php if (isset($_SESSION["Email"])) { ?>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="?act=user"><?= $mod->NgonNgu  == 1 ? "Thôn Tin \nTài Khoản" : "Info Account " ?></a>
-                            <a class="dropdown-item" href="?act=logout"><?= $mod->NgonNgu  == 1 ? "Đăng Xuất" : "Logout" ?></a>
-                            <?php if ($mod->VaiTro == 1) { ?>
+                            <a class="dropdown-item" href="admin/?act=user"><?= $NgonNgu == 1 ? "Thông Tin Tài Khoản" : "Account Info" ?></a>
+                            <a class="dropdown-item" href="?act=logout"><?= $NgonNgu == 1 ? "Đăng Xuất" : "Logout" ?></a>
+                            <?php if ($vaitro == 1) { ?>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="?act=admin"><?= $mod->VaiTro == 1 ? "Trang quản trị" : "Tab Manganer" ?></a>
+                                <a class="dropdown-item" href="admin"><?= $NgonNgu == 1 ? "Trang Quản Trị" : "Admin Panel" ?></a>
                             <?php } ?>
                         </div>
                     <?php } else { ?>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="?act=singup"><?= $mod->NgonNgu  == 1 ? "Đăng ký" : "Sing up" ?></a>
-                            <a class="dropdown-item" href="?act=singin"><?= $mod->NgonNgu  == 1 ? "Đăng Nhập" : "Sing in" ?></a>
+                            <a class="dropdown-item" href="?act=signup"><?= $NgonNgu == 1 ? "Đăng Ký" : "Sign Up" ?></a>
+                            <a class="dropdown-item" href="?act=signin"><?= $NgonNgu == 1 ? "Đăng Nhập" : "Sign In" ?></a>
                         </div>
                     <?php } ?>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="?act=user"><?= $mod->NgonNgu  == 1 ? "QuocHuy CLUB" : "QuocHuy CLUB" ?></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="?act=user"><?= $NgonNgu == 1 ? "QuocHuy CLUB" : "QuocHuy CLUB" ?></a>
                 </li>
             </ul>
+
             <form class="form-inline my-2 my-lg-0" method="post" action="">
-                <input class="form-control mr-sm-2" type="text" placeholder="<?= $mod->NgonNgu == 1  ? "Tìm Kiếm" : "Search" ?>" aria-label="Search" name="search" id="search">
-                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="smf" value="<?= $mod->NgonNgu == 1 ? "Tìm Kiếm" : "Search" ?>"></input>
+                <input class="form-control mr-sm-2" type="text" placeholder="<?= $NgonNgu == 1 ? "Tìm Kiếm" : "Search" ?>" aria-label="Search" name="search" id="search">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="smf" value="<?= $NgonNgu == 1 ? "Tìm Kiếm" : "Search" ?>">
             </form>
         </div>
     </nav>
-    <!-- and nav -->
 
-    <!-- slide show -->
+    <!-- Slide Show -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -175,86 +255,207 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="Data/Huydev/ImgSlideShow/slide[1].png" class="d-block w-100" alt="...">
+                <img src="Data/Huydev/ImgSlideShow/slide[1].png" class="d-block w-100" alt="Slide 1">
+                <div class="banner-content">
+                    <h2>Đêm chưa ngủ</h2>
+                    <p>Giảm ngay <span>8%</span></p>
+                    <a href="#" class="promo-button">Mua ngay</a>
+                </div>
+            </div>
+            <!-- Thêm các carousel item khác tại đây -->
+            <div class="carousel-item">
+                <img src="Data/Huydev/ImgSlideShow/slide[2].png" class="d-block w-100" alt="Slide 2">
+                <div class="banner-content">
+                    <h2>Khuyến mãi lớn</h2>
+                    <p>Giảm giá tới <span>20%</span></p>
+                    <a href="#" class="promo-button">Mua ngay</a>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="Data/Huydev/ImgSlideShow/slide[2].png" class="d-block w-100" alt="...">
+                <img src="Data/Huydev/ImgSlideShow/slide[3].png" class="d-block w-100" alt="Slide 3">
+                <div class="banner-content">
+                    <h2>Khuyến mãi lớn</h2>
+                    <p>Giảm giá tới <span>20%</span></p>
+                    <a href="#" class="promo-button">Mua ngay</a>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="Data/Huydev/ImgSlideShow/slide[3].png" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="Data/Huydev/ImgSlideShow/slide[4].png" class="d-block w-100" alt="...">
+                <img src="Data/Huydev/ImgSlideShow/slide[4].png" class="d-block w-100" alt="Slide 3">
+                <div class="banner-content">
+                    <h2>Khuyến mãi lớn</h2>
+                    <p>Giảm giá tới <span>20%</span></p>
+                    <a href="#" class="promo-button">Mua ngay</a>
+                </div>
             </div>
         </div>
-        <a class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <h1 style="text-align: center; margin-top: 30px; color: burlywood">
-       Dịch Vụ
-    </h1>
-    <div class="container" id="Product_List" style="margin-top: 20px;">
+
+    <div style="background-color: azure;">
+        <h1 style="text-align: center; color: burlywood">Dịch Vụ</h1>
+        <div class="container" id="Product_List"></div>
     </div>
+
     <?php
-    $jsonCategories = json_encode($list);
+    usort($list, function ($a, $b) {
+        return $b->count <=> $a->count;
+    });
+
+    $newList = [];
+    foreach ($list as $item) {
+        $newList[] = $item;
+    }
+    $jsonCategories = json_encode($newList);
+
     ?>
-<h1 style="text-decoration: underline;"></h1>
     <script>
         const categories = <?php echo $jsonCategories; ?>;
         // Hàm để render các category
         function renderCategories() {
             categories.forEach(category => {
-                console.log(category)
                 if (category.TrangThai == 1) {
                     let row = document.createElement("div");
-                    row.style.borderRadius = "5%"
-
                     row.classList.add("card");
                     row.id = "cards" + category.MaLoaiHang;
+
                     let img = document.createElement("img");
-                    row.appendChild(img);
                     img.src = category.HinhAnh;
+                    row.appendChild(img);
+
                     let name = document.createElement("p");
+                    name.innerHTML = category.TenLoaiHang;
                     row.appendChild(name);
-                    name.innerHTML = category.TenLoaiHang + "";
-                    name.style.textAlign = "center";
+
                     row.addEventListener('mouseover', function() {
-                        // Xử lý khi chuột lướt qua phần tử
-                        row.style.transition = "all 1s";
-                        row.style.backgroundColor = 'lightgreen';
-                        img.style.transition = "transform 0.5s ease";
-                        name.textContent = category.TenLoaiHang + "→";
+                        img.style.transform = "scale(1.1)";
                         name.style.textDecoration = "underline";
                     });
+
+                    row.onclick = function() {
+                        window.location.href = '?act=dichvu&id=' + category.MaLoaiHang + '&count=' + category.count;
+                    };
+
                     row.addEventListener('mouseout', function() {
-                        row.style.backgroundColor = '#ffff';
-                        name.textContent = category.TenLoaiHang + "";
+                        img.style.transform = "scale(1)";
                         name.style.textDecoration = "none";
                     });
-                
+
                     var Mod = document.getElementById("Product_List");
                     if (Mod) {
                         Mod.appendChild(row);
+                        row.style.marginBottom = "30px";
                     }
                 }
             });
-        }   
-        // // Gọi hàm renderCategories khi trang tải xong
+        }
         document.addEventListener('DOMContentLoaded', renderCategories);
     </script>
-    <!-- danh muc -->
-    <!-- uu dãi -->
+    </div>
+    <div style="background-color: aliceblue;">
+        <h1 style="text-align: center;color: burlywood">Các ưu đãi của Hãng</h1>
+        <div class="container" id="voucher"></div>
+        <?php $Voucher = json_encode($uudai); ?>
+        <script>
+            const Vouchers = <?php echo $Voucher; ?>;
 
+            function renderCategories() {
+                Vouchers.forEach(category => {
+                    let row = document.createElement("div");
+                    row.classList.add("card");
+                    row.id = "cards" + category.id;
 
-    <h1 style="text-align: center; margin-top: 30px; color: burlywood">
-        Các ưu đãi của Hãng
-    </h1>
+                    let img = document.createElement("img");
+                    img.src = category.HinhAnh;
+                    row.appendChild(img);
+
+                    let name = document.createElement("p");
+                    name.innerHTML = category.name;
+                    row.appendChild(name);
+
+                    let detail = document.createElement("p");
+                    detail.innerHTML = "Thêm dữ liệu mới vào đây";
+                    row.appendChild(detail);
+
+                    row.addEventListener('mouseover', function() {
+                        img.style.transform = "scale(1.1)";
+                        name.style.textDecoration = "underline";
+                    });
+
+                    row.onclick = function() {
+                        window.location.href = '?act=dichvu&id=' + category.MaLoaiHang + '&count=' + category.count;
+                    };
+
+                    row.addEventListener('mouseout', function() {
+                        img.style.transform = "scale(1)";
+                        name.style.textDecoration = "none";
+                    });
+
+                    var Mod = document.getElementById("voucher");
+                    if (Mod) {
+                        Mod.appendChild(row);
+                        row.style.marginBottom = "30px";
+                    }
+                });
+            }
+            document.addEventListener('DOMContentLoaded', renderCategories);
+        </script>
+    </div>
+
+    <div style="background-color: antiquewhite;">
+        <h1 style="text-align: center;color: burlywood">Các điểm đến phổ biến</h1>
+        <div class="container" id="location"></div>
+        <?php $Location = json_encode($location); ?>
+
+        <script>
+            const Locations = <?php echo $Location; ?>;
+            console.log(Locations)
+
+            function renderCategories() {
+                Locations.forEach(category => {
+                    let row = document.createElement("div");
+                    row.classList.add("card");
+                    row.id = "cards" + category.id;
+
+                    let img = document.createElement("img");
+                    img.src = category.image;
+                    row.appendChild(img);
+
+                    let name = document.createElement("p");
+                    name.innerHTML = category.name;
+                    row.appendChild(name);
+
+                    row.addEventListener('mouseover', function() {
+                        img.style.transform = "scale(1.1)";
+                        name.style.textDecoration = "underline";
+                    });
+
+                    row.onclick = function() {
+                        window.location.href = '?act=dichvu&id=' + category.MaLoaiHang + '&count=' + category.count;
+                    };
+
+                    row.addEventListener('mouseout', function() {
+                        img.style.transform = "scale(1)";
+                        name.style.textDecoration = "none";
+                    });
+
+                    var Mod = document.getElementById("location");
+                    if (Mod) {
+                        Mod.appendChild(row);
+                        row.style.marginBottom = "30px";
+                    }
+                });
+            }
+            document.addEventListener('DOMContentLoaded', renderCategories);
+        </script>
+    </div>
+
     <footer>
         <div class="footer-container">
             <div class="footer-section">
@@ -306,7 +507,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
-<script>
-</script>
 
 </html>

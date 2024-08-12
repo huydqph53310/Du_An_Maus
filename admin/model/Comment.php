@@ -6,12 +6,10 @@ Class Comment{
         $this->MaBinhLuan = $MaBinhLuan;
         $this->NoiDung = $NoiDung;
         $this->MaSanPhamDuocBinhLuan = $MaSanPhamDuocBinhLuan;
+        $this->MaKhacHangGuiBinhLuan = $MaKhacHangGuiBinhLuan;
         $this->ThoiGianTao = $ThoiGianTao;
     }
     public function __destruct(){
         
     }
 }
-
-
-?>
